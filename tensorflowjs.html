@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <!-- Check https://github.com/tensorflow/tfjs for the latest version -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0"></script>
+  </head>
+  <body>
+    <h1>Hello TensorFlow.js</h1>
+    Result:
+    <div id="result"></div>
+    <script>
+      async function solve() {
+        const model = tf.sequential();
+        model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+        model.compile({ optimizer: "sgd", loss: "meanSquaredError" });
+        const xs = tf.tensor2d([1, 2, 3, 4, 5], [5, 1]);
+        const ys = tf.tensor2d([14, 24, 34, 44, 54], [5, 1]);
+        await model.fit(xs, ys, { epochs: 400 });
+        document.getElementById("result").innerText = model.predict(
+          tf.tensor2d([6], [1, 1])
+        );
+      }
+      solve();
+    </script>
+  </body>
+  <html></html>
+</html>
